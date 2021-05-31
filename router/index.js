@@ -1,10 +1,12 @@
 import Vue from "vue"
-import Router from 'vue-router'
+import VueRouter from 'vue-router'
 import Header from '@/components/common/Header'
 import Login from '@/components/login/LoginUser'
+import OverallInterface from "@/components/common/OverallInterface";
+import Embed from '@/components/common/Embed';
 
-Vue.use(Router)
-export default new Router({
+Vue.use(VueRouter)
+export default new VueRouter({
     mode: 'hash',
     routes: [
         {
@@ -14,14 +16,34 @@ export default new Router({
         {
             path: '/login',
             component: Login,
-            // meta: {
-            //
-            // }
+            meta: {
+                keepalive: false
+            }
         },
         {
             path: '/header',
             component: Header,
-        }
+            meta: {
+                keepalive: false
+            }
+        },
+        {
+            path: '/embed_and_extract',
+            component: OverallInterface,
+            meta: {
+                keepalive: false,
+                requireAuth: false//true
+            },
+            children: [
+                {
+                    path: '/Embed',
+                    component: Embed,
+                    meta: {
+                        requireAuth: false
+                    }
+                },
+            ]
+        },
     ]
 });
 
