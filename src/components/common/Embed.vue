@@ -1,9 +1,5 @@
 <template>
   <div>
-    <el-radio-group v-model="embedResultValid" style="margin-top: 10px">
-      <el-radio-button v-model="embedResultValid" label="false">嵌入</el-radio-button>
-      <el-radio-button v-model="embedResultValid" label="true" disabled>详细结果</el-radio-button>
-    </el-radio-group>
     <div class="uploadPage">
       <div class="embedUploadForm" style="width:100%; ;height:100%">
         <el-form class="embedForm" ref="form" :model="form" label-width="auto"
@@ -44,11 +40,43 @@
           <el-form-item>
             <el-button type="primary" @click="embedStart" style="width: 250px;margin-right: 110px">嵌入水印</el-button>
           </el-form-item>
+
+          <div v-show="showResult">
+            <el-form-item>
+              <el-button type="primary" @click="showResultDetails = true" style="width: 250px;margin-right: 110px">显示嵌入细节</el-button>
+            </el-form-item>
+            <el-link icon="el-icon-download" href=""><span style="font-size: large">{{ resultLink }}</span></el-link>
+            <el-dialog
+                title="水印嵌入细节" :visible.sync="showResultDetails" width=65%>
+              <el-image class="resultImg"
+                        :src="imageUrl1"
+                        :fit="fill">
+                <div slot="error">
+                  <i class="el-icon-picture-outline"></i>
+                </div>
+              </el-image>
+              <el-divider direction="vertical"></el-divider>
+              <el-image class="resultImg"
+                        :src="imageUrl2"
+                        :fit="fill">
+                <div slot="error">
+                  <i class="el-icon-picture-outline"></i>
+                </div>
+              </el-image>
+              <el-divider direction="vertical"></el-divider>
+              <el-image class="resultImg"
+                        :src="imageUrl3"
+                        :fit="fill">
+                <div slot="error">
+                  <i class="el-icon-picture-outline"></i>
+                </div>
+              </el-image>
+              <el-divider direction="vertical"></el-divider>
+              <el-progress type="dashboard" :percentage="percentage" :color="colors" width="200"></el-progress>
+            </el-dialog>
+          </div>
         </el-form>
       </div>
-    </div>
-    <div v-show="showResultLink">
-      <el-link icon="el-icon-download" href=""><span style="font-size: large">{{ resultLink }}</span></el-link>
     </div>
   </div>
 
@@ -62,7 +90,20 @@ export default {
   data() {
     return {
       embedResultValid: false,
-      showResultLink: false
+      showResult: false,
+      showResultDetails: false,
+      resultLink: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+      imageUrl1: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+      imageUrl2: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+      imageUrl3: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+      colors: [
+        {color: '#f56c6c', percentage: 20},
+        {color: '#e6a23c', percentage: 40},
+        {color: '#5cb87a', percentage: 60},
+        {color: '#1989fa', percentage: 80},
+        {color: '#6f7ad3', percentage: 100}
+      ]
+
     }
   },
   methods: {
@@ -122,12 +163,11 @@ export default {
               message: '嵌入成功',
               showClose: true,
               type: "success"
-            })
-
+            });
           }
         })
       }
-    }
+    },
   }
 }
 </script>
@@ -144,6 +184,11 @@ export default {
 
   /*transform: translate(1%,30%);*/
   /*text-align: end;*/
+}
+
+.resultImg {
+  width: 200px;
+  height: 200px;
 }
 
 </style>
