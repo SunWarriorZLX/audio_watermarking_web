@@ -43,7 +43,6 @@
 </template>
 
 <script>
-import md5 from 'js-md5'
 
 export default {
   name: "Forgot",
@@ -92,8 +91,8 @@ export default {
         vcode: '',
         pass: '',
         checkPass: '',
-     },
-    codeBtnWord:'获取验证码',
+      },
+      codeBtnWord: '获取验证码',
     }
   }
 }

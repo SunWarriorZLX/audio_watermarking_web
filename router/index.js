@@ -1,9 +1,10 @@
-import Vue from "vue"
-import VueRouter from 'vue-router'
-import Header from '@/components/common/Header'
-import Login from '@/components/login/LoginUser'
+import Vue from "vue";
+import VueRouter from 'vue-router';
+import Header from '@/components/common/Header';
+import Login from '@/components/login/LoginUser';
 import OverallInterface from "@/components/common/OverallInterface";
 import Embed from '@/components/common/Embed';
+import Extract from '@/components/common/Extract';
 
 Vue.use(VueRouter)
 export default new VueRouter({
@@ -39,7 +40,14 @@ export default new VueRouter({
                     path: '/Embed',
                     component: Embed,
                     meta: {
-                        requireAuth: false
+                        requireAuth: false//true
+                    }
+                },
+                {
+                    path: '/Extract',
+                    component: Extract,
+                    meta:{
+                        requireAuth: false//true
                     }
                 },
             ]
