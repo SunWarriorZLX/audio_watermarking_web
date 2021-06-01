@@ -5,9 +5,8 @@ import {showFullScreenLoading, tryHideScreenLoading} from "@/loading";
 axios.defaults.timeout = 5000;//超时终止请求
 axios.defaults.baseURL = global.baseURL;//配置请求地址
 
-import router from '../router/index'
-import {extractDateFormat, use} from "element-ui";
-import {compile} from "vue-template-compiler";
+// import router from '../router/index'
+// import {extractDateFormat, use} from "element-ui";
 
 //http request 拦截器
 axios.interceptors.request.use(
@@ -50,6 +49,67 @@ axios.interceptors.response.use(
 export function post(url, data = {}) {
     return new Promise((resolve, reject) => {
         axios.post(url, data)
-            .then()
+            .then(response => {
+                resolve(response.data);
+            }, err => {
+                reject(err);
+            })
+    })
+}
+
+/**
+ * 封装get方法
+ * @param url
+ * @param data
+ * @returns {Promise}
+ */
+
+export function fetch(url, params = {}) {
+    return new Promise((resolve, reject) => {
+        axios.get(url, {
+            params: params
+        })
+            .then(response => {
+                resolve(response.data);
+            })
+            .catch(err => {
+                reject(err)
+            })
+    })
+}
+
+/**
+ * 封装patch请求
+ * @param url
+ * @param data
+ * @returns {Promise}
+ */
+
+export function patch(url,data = {}){
+    return new Promise((resolve,reject) => {
+        axios.patch(url,data)
+            .then(response => {
+                resolve(response.data);
+            },err => {
+                reject(err)
+            })
+    })
+}
+
+/**
+ * 封装put请求
+ * @param url
+ * @param data
+ * @returns {Promise}
+ */
+
+export function put(url,data = {}){
+    return new Promise((resolve,reject) => {
+        axios.put(url,data)
+            .then(response => {
+                resolve(response.data);
+            },err => {
+                reject(err)
+            })
     })
 }

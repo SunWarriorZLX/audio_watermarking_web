@@ -6,13 +6,23 @@ import './components/globle/global.css';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import './components/globle/global.css';
+import {post, fetch, patch, put} from './http';
+import globle from './globle/globleApi';
 import store from "@/store";
 import APlayer from 'vue-aplayer';
 
 Vue.use(ElementUI);
 Vue.use(APlayer);
 
-axios.defaults.withCredentials;
+axios.defaults.withCredentials = true;
+Vue.prototype.$axios = axios;
+Vue.prototype.$post = post;
+Vue.prototype.$fetch = fetch;
+Vue.prototype.$patch = patch;
+Vue.prototype.$put = put;
+
+axios.defaults.baseURL = globle.baseURL;
+axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 
 Vue.config.productionTip = false;
 
